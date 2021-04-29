@@ -56,6 +56,7 @@ cc_binary {
         "libhardware",
         "android.hardware.tetheroffload.config@1.0",
         "android.hardware.tetheroffload.control@1.0",
+        "android.hardware.tetheroffload.control@1.1",
     ],
 }
 
