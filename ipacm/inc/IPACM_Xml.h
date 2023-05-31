@@ -1,5 +1,5 @@
 /* 
-Copyright (c) 2013-2021, The Linux Foundation. All rights reserved.
+Copyright (c) 2013, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -68,7 +68,6 @@ if (!(a)) {                                                 \
 /* Max allowed size of the XML file (2 MB) */
 #define IPACM_XML_MAX_FILESIZE               (2 << 20)
 #define IPACM_MAX_FIREWALL_ENTRIES            50
-#define IPACM_MAX_FILTER_CFG_ENTRIES          10
 #define IPACM_IPV6_ADDR_LEN                   16
 
 /* Defines for clipping space or space & quotes (single, double) */
@@ -113,13 +112,6 @@ if (!(a)) {                                                 \
 #define Port_TAG                             "Port"
 #define TCP_PROTOCOL_TAG                     "TCP"
 #define UDP_PROTOCOL_TAG                     "UDP"
-
-/* Filter Config Entries */
-#define FilterCfg_TAG                        "IPACMFilterCfg"
-#define FilterEnabled_TAG                    "FilteringEnabled"
-#define FilterDLAck_TAG                      "FilterDLAck"
-#define FilterEntry_TAG                      "FilterEntry"
-
 
 /* FIREWALL Config Entries */
 #define Firewall_TAG                         "Firewall"
@@ -223,7 +215,7 @@ typedef enum
 {
 	IP_V4 = 4,
 	IP_V6 = 6
-} ip_version_enum;
+} firewall_ip_version_enum;
   
 /*---------------------------------------------------------------------------
            Extended FireWall Entry Configuration.
@@ -231,7 +223,7 @@ typedef enum
 typedef struct
 {
 	struct ipa_rule_attrib attrib;
-	ip_version_enum  ip_vsn;
+	firewall_ip_version_enum  ip_vsn;
 } IPACM_extd_firewall_entry_conf_t;
 
 
@@ -252,23 +244,8 @@ typedef struct
 	bool rule_action_accept;
 	bool firewall_enable;
 } IPACM_firewall_conf_t;
+  
 
-/*---------------------------------------------------------------------------
-           Filter Configuration.
----------------------------------------------------------------------------*/
-typedef struct
-{
-	struct ipa_rule_attrib attrib;
-	ip_version_enum  ip_vsn;
-} IPACM_filter_conf_entry_t;
-
-typedef struct
-{
-	bool filter_enable;
-	bool dl_ack_filter_enable;
-	uint8_t  num_filter_cfg_entries;
-	IPACM_filter_conf_entry_t filter_cfg_entries[IPACM_MAX_FILTER_CFG_ENTRIES];
-} IPACM_filter_conf_t;
 
 typedef struct
 {
@@ -321,14 +298,6 @@ int IPACM_read_firewall_xml
 	char *xml_file,                                 /* Filename and path     */
 	IPACM_firewall_conf_t *config                   /* Mobile AP config data */
 );
-
-/* This function reads Filter Cfg XML and store in IPACM Filter Cfg stucture */
-int IPACM_read_filter_cfg_xml
-(
-	char *xml_file,                                 /* Filename and path */
-	IPACM_filter_conf_t *config                     /* Filter config data */
-);
-
 
 #ifdef __cplusplus
 }

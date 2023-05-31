@@ -3,7 +3,6 @@ TARGET_DISABLE_IPACM := false
 ifneq ($(TARGET_BOARD_SUFFIX),_au)
 #IPACM_DATA
 IPACM_DATA += IPACM_cfg.xml
-IPACM_DATA += IPACM_Filter_cfg.xml
 IPACM_DATA += ipacm
 IPACM_DATA += ipacm.rc
 endif
